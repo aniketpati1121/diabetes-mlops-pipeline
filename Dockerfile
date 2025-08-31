@@ -1,8 +1,13 @@
-FROM python:3.10 
-WORKIR/app
+FROM python:3.10
 
-COPY ./app 
+# Set working directory
+WORKDIR /app
 
-RUN pip install -r requirements.txt 
+# Copy all files into container
+COPY . /app
 
-CMD ["uvicorn" , "main:app" , "--host" , "0.0.0.0" , "--port" "8000"]
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Run FastAPI app with uvicorn
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
